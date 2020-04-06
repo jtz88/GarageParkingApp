@@ -6,24 +6,25 @@ namespace GarageParkingApp
 {
     public class UI
     {
-        public static void InitializeUI()
+        static GarageHandler garagehandler;
+        public static void MainMenu()
         {
-            // Fråga användaren hur stort Garaget ska vara och sätt sedan storleken på arraryen.
 
             while (true)
             {
                 Console.WriteLine("Please navigate through the menu by inputting the number \n(1, 2, 3 ,4, 0) of your choice"
-                                    + "\n1. Examine a List"
-                                    + "\n2. Examine a Queue"
-                                    + "\n3. Examine a Stack"
-                                    + "\n4. CheckParanthesis"
+                                    + "\n1. Leave the garage"
+                                    + "\n2. Park a car"
+                                    + "\n3. "
+                                    + "\n4. "
                                     + "\n0. Exit the application");
-                char input = ' '; // Creates the character input to be used with the switch-case below.
+
+                char input = ' '; 
                 try
                 {
-                    input = Console.ReadLine()[0]; // Tries to set input to the first char in an input line
+                    input = Console.ReadLine()[0]; 
                 }
-                catch (IndexOutOfRangeException) // If the input line is empty, we ask the users for some input.
+                catch (IndexOutOfRangeException) 
                 {
                     Console.Clear();
                     Console.WriteLine("Please enter some input!");
@@ -31,21 +32,23 @@ namespace GarageParkingApp
                 switch (input)
                 {
                     case '1':
-                        //ExamineList();
+                        string regno = Util.AskForString("Enter the leaving vehicle regnumber: ");
+                        garagehandler.Leave(regno);
+                        
+                        //UIMethods.LeaveGarage();
+                        
+                        //Console.WriteLine("Please enter the size of the garage");
+                        //string garageSize = Console.ReadLine();
+                        //var capacity = Int32.Parse(garageSize);
+                        //GarageHandler garagehandler = new GarageHandler(capacity);
+                        //garagehandler.GetGarageSize();
                         break;
-                    case '2':
-                        //ExamineQueue();
+                    case '2':                       
                         break;
                     case '3':
-                        //ExamineStack();
                         break;
                     case '4':
-                        //CheckParanthesis();
                         break;
-                    /*
-                     * Extend the menu to include the recursive 
-                     * and iterative exercises.
-                     */
                     case '0':
                         Environment.Exit(0);
                         break;

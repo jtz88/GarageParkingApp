@@ -6,7 +6,7 @@ namespace GarageParkingApp
 {
     internal class Garage<T> : IEnumerable<T> where T : Vehicle
     {
-        private T[] vehicles;
+        public T[] vehicles;
 
         public Garage(int capacity)
         {
@@ -19,20 +19,63 @@ namespace GarageParkingApp
 
         //}
 
-        public void WriteSizeToConsole()
+        //public static void OutputGarageSize()
+        //{
+        //    var garageSize = vehicles.Length;
+        //    Console.WriteLine($"The size of the garage is: {garageSize}");
+        //}
+
+        internal bool Add(T vehicle)
         {
-            var arrayLength = vehicles.Length;
-            Console.WriteLine(arrayLength);
+            bool result= false;
+
+            for (int i = 0; i < vehicles.Length; i++)
+            {
+                if(vehicles[i] == null)
+                {
+                    vehicles[i] = vehicle;
+                    result = true;
+                    break;
+                }
+            }
+            return result;
+        } 
+        
+        internal bool Leave(T vehicle)
+        {
+            bool result= false;
+
+            for (int i = 0; i < vehicles.Length; i++)
+            {
+                if(vehicles[i] == vehicle)
+                {
+                    vehicles[i] = null;
+                    result = true;
+                    break;
+                }
+            }
+            return result;
         }
+
+        //public void Add(string regno)
+        //{
+        //    New instance of employee
+        //    Add emplyee to list
+        //    employees.Add(new Employee(name, salary));
+
+        //}
 
         public IEnumerator<T> GetEnumerator()
         {
-            throw new NotImplementedException();
+            foreach (var v in vehicles)
+            {
+                if (v != null) yield return v;
+            }
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            return GetEnumerator();
         }
 
         //private int garagesize;

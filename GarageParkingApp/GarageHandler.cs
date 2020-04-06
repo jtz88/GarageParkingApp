@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace GarageParkingApp
 {
@@ -16,18 +17,31 @@ namespace GarageParkingApp
             garage = new Garage<Vehicle>(capacity); 
         }
 
-        //internal void Demo()
-        //{
+        internal bool AddVehicle(Vehicle vehicle)
+        {
+            //Check if garage is full
+            return garage.Add(vehicle);
+        } 
+        
+        internal bool Leave(string regno)
+        {
+            var vehicle = garage.FirstOrDefault(v => v.RegNo == regno);
+            return vehicle is null ? false : garage.Leave(vehicle);
+           
+        }
 
-        //}
+        internal void GetAllParkedVehicles()
+        {
+            garage.GetEnumerator();
+        }
 
         // Här kan man ha en create garage metod som skickar in hur stort garaget ska vara exempelvis
 
         // GarageHandler skickar vidare till Garage. Garage Lägger till och tar bort.
-        internal void GetSize()
-        {
-            garage.WriteSizeToConsole();
-        }
+        //internal void GetGarageSize()
+        //{
+        //    garage.OutputGarageSize();
+        //}
 
     }
 }
