@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace GarageParkingApp
 {
@@ -13,17 +14,19 @@ namespace GarageParkingApp
             vehicles = new T[capacity];
         }
 
-        // Lägger till bilar i sin privata array
-        //public bool Park(T vehicle)
-        //{
+        public int GetNrOfFreeSpaces => vehicles.Where(v => v is null).Count();    
 
-        //}
 
-        //public static void OutputGarageSize()
-        //{
-        //    var garageSize = vehicles.Length;
-        //    Console.WriteLine($"The size of the garage is: {garageSize}");
-        //}
+        internal void OutputAllVehicles()
+        {
+            for (int i = 0; i < vehicles.Length; i++)
+            {
+                if (vehicles[i] != null)
+                {
+                    Console.WriteLine($"Parking slot {i+1} is occupied by vehicle with regnumber: {vehicles[i].RegNo}");
+                }
+            }
+        }
 
         internal bool Add(T vehicle)
         {
@@ -45,7 +48,7 @@ namespace GarageParkingApp
         {
             bool result= false;
 
-            for (int i = 0; i < vehicles.Length; i++)
+            for (int i = 0; i < vehicles.Length; i++)      
             {
                 if(vehicles[i] == vehicle)
                 {
@@ -57,13 +60,11 @@ namespace GarageParkingApp
             return result;
         }
 
-        //public void Add(string regno)
-        //{
-        //    New instance of employee
-        //    Add emplyee to list
-        //    employees.Add(new Employee(name, salary));
-
-        //}
+        public int AvailableParkingSlots()
+        {
+            var result = vehicles.Where(v => v is null).Count();
+            return result;
+        }
 
         public IEnumerator<T> GetEnumerator()
         {
@@ -78,12 +79,5 @@ namespace GarageParkingApp
             return GetEnumerator();
         }
 
-        //private int garagesize;
-        //private T[] vehicles;
-        //public Garage(int garagesize)
-        //{
-        //    this.garagesize = garagesize;
-        //    vehicles = new T[garagesize]();
-        //}
     }
 }
